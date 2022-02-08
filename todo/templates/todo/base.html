@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'todo/style.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="{% static 'todo/favicon.ico' %}">
+    <title>ToDo Woo</title>
+</head>
+<body>
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="{% static 'todo/logo.png' %}" alt="logo">
+                </span>
+                <div class="text header-text">
+                    <span class="name">ToDo Woo</span>
+                    <span class="profession">Just Do It!</span>
+                </div>
+            </div>
+
+            <i class='bx bx-chevrons-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="nav-link">
+                    {% if user.is_authenticated %}
+                    <span class="greet">Welcome, {{ user.username }}!
+                        <form action="{% url 'logoutuser' %}" method="POST">
+                            {% csrf_token %}
+                            <button class="exit" type="submit">Logout</button>
+                        </form>
+                    </span>
+                </li>
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="{% url 'home' %}">
+                            <i class='bx bx-home icon' ></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{% url 'currenttodos' %}">
+                            <i class='bx bx-list-ul icon'></i>
+                            <span class="text nav-text">Current Todo</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{% url 'createtodo' %}">
+                            <i class='bx bx-bell-plus icon' ></i>
+                            <span class="text nav-text">Create Todo</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{% url 'completedtodos' %}">
+                            <i class='bx bx-list-check icon' ></i>
+                            <span class="text nav-text">Completed Todo</span>
+                        </a>
+                    </li>
+                </ul>
+                {% else %}
+                <li class="nav-link">
+                    <a href="{% url 'signupuser' %}">
+                        <i class='bx bx-user-plus icon'></i>
+                        <span class="text nav-text">Sign Up</span>
+                    </a>
+                </li>
+                <li class="nav-link">
+                    <a href="{% url 'loginuser' %}">
+                        <i class='bx bx-log-in icon' ></i>
+                        <span class="text nav-text">Log In</span>
+                    </a>
+                </li>
+                {% endif %}
+
+            </div>
+            <div class="bottom-content">
+                <li class="mode">
+                    <div class="moon-sun">
+                        <i class='bx bx-moon icon moon' ></i>
+                        <i class='bx bx-sun icon sun' ></i>
+                    </div>
+                    <span class="mode-text text">Dark Mode</span>
+
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+    <section class="home">
+        <div class="text">
+            Todo Woo!
+            <br>
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+    <script src="{% static 'todo/script.js' %}"></script>
+</body>
+</html>
+
+
+
