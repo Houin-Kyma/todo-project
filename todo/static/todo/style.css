@@ -138,9 +138,19 @@ header .image-text .header-text{
 }
 
 .menu .exit{
-    font-weight:500;
-    margin-top: -2px;
+    outline: none;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 6px;
+    font-size: 10px;
+    transition: var(--tran-04);
+    cursor: pointer;
 }
+
+.menu .exit:hover{
+    background: var(--primary-color);
+}
+
 
 
 .header-text .profession{
